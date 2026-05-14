@@ -5,17 +5,13 @@ let touchStartX = 0;
 let touchEndX = 0;
 
 async function loadImages() {
-  try {
-    const response = await fetch("images.json");
-    images = await response.json();
+  const response = await fetch("images.json");
+  images = await response.json();
 
-    images.sort();
+  images.sort();
 
-    if (images.length > 0) {
-      showImage();
-    }
-  } catch (error) {
-    console.error("Erreur chargement images:", error);
+  if (images.length > 0) {
+    showImage();
   }
 }
 
@@ -24,8 +20,6 @@ function showImage() {
 }
 
 function nextImage() {
-  if (!images.length) return;
-
   currentIndex++;
 
   if (currentIndex >= images.length) {
@@ -36,8 +30,6 @@ function nextImage() {
 }
 
 function prevImage() {
-  if (!images.length) return;
-
   currentIndex--;
 
   if (currentIndex < 0) {
