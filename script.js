@@ -1,6 +1,9 @@
 let images = [];
 let currentIndex = 0;
 
+let touchStartX = 0;
+let touchEndX = 0;
+
 async function loadImages() {
   try {
     const response = await fetch("images.json");
@@ -42,6 +45,27 @@ function prevImage() {
   }
 
   showImage();
+}
+
+document.addEventListener("touchstart", (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener("touchend", (e) => {
+  touchEndX = e.changedTouches[0].screenX;
+  handleSwipe();
+});
+
+function handleSwipe() {
+  const delta = touchEndX - touchStartX;
+
+  if (Math.abs(delta) < 50) return;
+
+  if (delta < 0) {
+    nextImage();
+  } else {
+    prevImage();
+  }
 }
 
 loadImages();

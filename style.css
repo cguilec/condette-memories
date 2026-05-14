@@ -2,7 +2,7 @@ body {
   margin: 0;
   background: #111;
   overflow: hidden;
-  font-family: Arial, sans-serif;
+  touch-action: pan-y;
 }
 
 .container {
@@ -11,37 +11,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
 }
 
 img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-}
-
-.nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 70px;
-  height: 70px;
-  border: none;
-  border-radius: 50%;
-  font-size: 30px;
-  background: rgba(0,0,0,0.45);
-  color: white;
-  cursor: pointer;
-}
-
-.prev {
-  left: 20px;
-}
-
-.next {
-  right: 20px;
-}
-
-.nav:hover {
-  background: rgba(255,255,255,0.2);
+  user-select: none;
+  -webkit-user-drag: none;
 }
