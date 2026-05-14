@@ -15,7 +15,7 @@ async function loadImages() {
       showImage();
     }
   } catch (err) {
-    console.error(err);
+    console.error("Erreur chargement images:", err);
   }
 }
 
@@ -25,12 +25,14 @@ function showImage() {
 
 function nextImage() {
   if (!images.length) return;
+
   currentIndex = (currentIndex + 1) % images.length;
   showImage();
 }
 
 function prevImage() {
   if (!images.length) return;
+
   currentIndex = (currentIndex - 1 + images.length) % images.length;
   showImage();
 }
@@ -50,7 +52,7 @@ function handleSwipe() {
 const container = document.querySelector(".container");
 
 //
-// MOBILE
+// SMARTPHONE
 //
 container.addEventListener("touchstart", (e) => {
   startX = e.touches[0].clientX;
@@ -62,7 +64,7 @@ container.addEventListener("touchend", (e) => {
 });
 
 //
-// PC SOURIS
+// SOURIS
 //
 container.addEventListener("mousedown", (e) => {
   isMouseDown = true;
@@ -79,6 +81,19 @@ container.addEventListener("mouseup", (e) => {
 
 container.addEventListener("mouseleave", () => {
   isMouseDown = false;
+});
+
+//
+// CLAVIER
+//
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowRight") {
+    nextImage();
+  }
+
+  if (e.key === "ArrowLeft") {
+    prevImage();
+  }
 });
 
 loadImages();
