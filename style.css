@@ -2,7 +2,7 @@ body {
   margin: 0;
   background: #111;
   overflow: hidden;
-  touch-action: pan-y;
+  touch-action: none;
 }
 
 .container {
