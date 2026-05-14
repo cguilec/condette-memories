@@ -5,38 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Condette Memories</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
 </head>
 <body>
 
-<div class="container" id="container" onclick="toggleView()">
-
-  <div id="textView" class="view">
-    <h2>28 mars 2007</h2>
-    <p>
-      Le camping vient d’ouvrir.<br><br>
-      Nous sommes les premiers arrivés.<br><br>
-      Nuit très froide… environ 5° dans la caravane.<br><br>
-      Bon début de saison !
-    </p>
-    <div class="hint">👉 Touchez l’écran pour voir l’original</div>
-  </div>
-
-  <div id="imageView" class="view hidden">
-    <img src="images/Carnet_28032007.jpg" alt="Scan carnet">
-    <div class="hint">👉 Touchez pour revenir au texte</div>
-  </div>
-  <div id="commentsSection">
-  <h3>💬 Vos souvenirs / réactions</h3>
-
-  <div id="commentsList"></div>
-
-  <input type="text" id="name" placeholder="Ton prénom">
-  <textarea id="comment" placeholder="Ton message..."></textarea>
-  <button onclick="addComment()">Envoyer</button>
-  </div>
-
+<div class="container">
+  <img id="memoryImage" src="" alt="Souvenir Condette">
 </div>
 
 <script src="script.js"></script>
