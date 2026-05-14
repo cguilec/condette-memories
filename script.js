@@ -15,7 +15,7 @@ async function loadImages() {
       showImage();
     }
   } catch (err) {
-    console.error("Erreur chargement images:", err);
+    console.error(err);
   }
 }
 
@@ -25,14 +25,12 @@ function showImage() {
 
 function nextImage() {
   if (!images.length) return;
-
   currentIndex = (currentIndex + 1) % images.length;
   showImage();
 }
 
 function prevImage() {
   if (!images.length) return;
-
   currentIndex = (currentIndex - 1 + images.length) % images.length;
   showImage();
 }
@@ -52,7 +50,7 @@ function handleSwipe() {
 const container = document.querySelector(".container");
 
 //
-// SMARTPHONE
+// SWIPE MOBILE
 //
 container.addEventListener("touchstart", (e) => {
   startX = e.touches[0].clientX;
@@ -86,12 +84,14 @@ container.addEventListener("mouseleave", () => {
 //
 // CLAVIER
 //
-document.addEventListener("keydown", (e) => {
+window.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") {
+    e.preventDefault();
     nextImage();
   }
 
   if (e.key === "ArrowLeft") {
+    e.preventDefault();
     prevImage();
   }
 });
