@@ -1,8 +1,9 @@
 let images = [];
 let currentIndex = 0;
 
-let touchStartX = 0;
-let touchEndX = 0;
+let startX = 0;
+let endX = 0;
+let isMouseDown = false;
 
 async function loadImages() {
   try {
@@ -24,43 +25,20 @@ function showImage() {
 
 function nextImage() {
   if (!images.length) return;
-
-  currentIndex++;
-
-  if (currentIndex >= images.length) {
-    currentIndex = 0;
-  }
-
+  currentIndex = (currentIndex + 1) % images.length;
   showImage();
 }
 
 function prevImage() {
   if (!images.length) return;
-
-  currentIndex--;
-
-  if (currentIndex < 0) {
-    currentIndex = images.length - 1;
-  }
-
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
   showImage();
 }
 
-const container = document.querySelector(".container");
-
-container.addEventListener("touchstart", function(e) {
-  touchStartX = e.touches[0].clientX;
-}, { passive: true });
-
-container.addEventListener("touchend", function(e) {
-  touchEndX = e.changedTouches[0].clientX;
-  handleSwipe();
-}, { passive: true });
-
 function handleSwipe() {
-  const delta = touchEndX - touchStartX;
+  const delta = endX - startX;
 
-  if (Math.abs(delta) < 40) return;
+  if (Math.abs(delta) < 50) return;
 
   if (delta < 0) {
     nextImage();
@@ -68,5 +46,39 @@ function handleSwipe() {
     prevImage();
   }
 }
+
+const container = document.querySelector(".container");
+
+//
+// MOBILE
+//
+container.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+});
+
+container.addEventListener("touchend", (e) => {
+  endX = e.changedTouches[0].clientX;
+  handleSwipe();
+});
+
+//
+// PC SOURIS
+//
+container.addEventListener("mousedown", (e) => {
+  isMouseDown = true;
+  startX = e.clientX;
+});
+
+container.addEventListener("mouseup", (e) => {
+  if (!isMouseDown) return;
+
+  endX = e.clientX;
+  isMouseDown = false;
+  handleSwipe();
+});
+
+container.addEventListener("mouseleave", () => {
+  isMouseDown = false;
+});
 
 loadImages();
