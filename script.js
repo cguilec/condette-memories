@@ -1,18 +1,17 @@
 let images = [];
 let currentIndex = 0;
 
+let touchStartX = 0;
+let touchEndX = 0;
+
 async function loadImages() {
-  try {
-    const response = await fetch("images.json");
-    images = await response.json();
+  const response = await fetch("images.json");
+  images = await response.json();
 
-    images.sort();
+  images.sort();
 
-    if (images.length > 0) {
-      showImage();
-    }
-  } catch (error) {
-    console.error("Erreur chargement images:", error);
+  if (images.length > 0) {
+    showImage();
   }
 }
 
@@ -21,8 +20,6 @@ function showImage() {
 }
 
 function nextImage() {
-  if (!images.length) return;
-
   currentIndex++;
 
   if (currentIndex >= images.length) {
@@ -33,8 +30,6 @@ function nextImage() {
 }
 
 function prevImage() {
-  if (!images.length) return;
-
   currentIndex--;
 
   if (currentIndex < 0) {
@@ -42,6 +37,27 @@ function prevImage() {
   }
 
   showImage();
+}
+
+document.addEventListener("touchstart", (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener("touchend", (e) => {
+  touchEndX = e.changedTouches[0].screenX;
+  handleSwipe();
+});
+
+function handleSwipe() {
+  const delta = touchEndX - touchStartX;
+
+  if (Math.abs(delta) < 50) return;
+
+  if (delta < 0) {
+    nextImage();
+  } else {
+    prevImage();
+  }
 }
 
 loadImages();
