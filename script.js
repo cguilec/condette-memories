@@ -5,13 +5,16 @@ let touchStartX = 0;
 let touchEndX = 0;
 
 async function loadImages() {
-  const response = await fetch("images.json");
-  images = await response.json();
+  try {
+    const response = await fetch("images.json");
+    images = await response.json();
+    images.sort();
 
-  images.sort();
-
-  if (images.length > 0) {
-    showImage();
+    if (images.length > 0) {
+      showImage();
+    }
+  } catch (err) {
+    console.error(err);
   }
 }
 
@@ -20,6 +23,8 @@ function showImage() {
 }
 
 function nextImage() {
+  if (!images.length) return;
+
   currentIndex++;
 
   if (currentIndex >= images.length) {
@@ -30,6 +35,8 @@ function nextImage() {
 }
 
 function prevImage() {
+  if (!images.length) return;
+
   currentIndex--;
 
   if (currentIndex < 0) {
@@ -39,19 +46,21 @@ function prevImage() {
   showImage();
 }
 
-document.addEventListener("touchstart", (e) => {
-  touchStartX = e.changedTouches[0].screenX;
-});
+const container = document.querySelector(".container");
 
-document.addEventListener("touchend", (e) => {
-  touchEndX = e.changedTouches[0].screenX;
+container.addEventListener("touchstart", function(e) {
+  touchStartX = e.touches[0].clientX;
+}, { passive: true });
+
+container.addEventListener("touchend", function(e) {
+  touchEndX = e.changedTouches[0].clientX;
   handleSwipe();
-});
+}, { passive: true });
 
 function handleSwipe() {
   const delta = touchEndX - touchStartX;
 
-  if (Math.abs(delta) < 50) return;
+  if (Math.abs(delta) < 40) return;
 
   if (delta < 0) {
     nextImage();
