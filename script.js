@@ -53,6 +53,11 @@ function prevImage() {
   showImage();
 }
 
+function goHome() {
+  document.querySelector(".container").style.display = "none";
+  document.getElementById("yearSelector").style.display = "flex";
+}
+
 function handleSwipe() {
   const delta = endX - startX;
 
@@ -61,6 +66,8 @@ function handleSwipe() {
   if (delta < 0) nextImage();
   else prevImage();
 }
+
+
 
 const container = document.querySelector(".container");
 
