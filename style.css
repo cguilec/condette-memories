@@ -42,6 +42,31 @@ img {
   -webkit-user-drag: none;
 }
 
+
+.navButtons {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  z-index: 1000;
+}
+
+.navButtons button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.65);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.navButtons button:hover {
+  background: rgba(255,255,255,0.2);
+}
+
 #homeButton {
   position: absolute;
   top: 20px;
